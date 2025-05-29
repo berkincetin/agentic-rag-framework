@@ -2,7 +2,6 @@
 
 A modular Retrieval-Augmented Generation (RAG) system developed for Atlas University in Istanbul, Turkey. This system supports multiple chatbots with different document repositories, databases, and prompt templates to assist students, administrators, and researchers.
 
-> **Note**: Replace `YOUR_USERNAME` in the clone commands below with your actual GitHub username after uploading to GitHub.
 
 ## Features
 
