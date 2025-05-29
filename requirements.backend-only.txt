@@ -1,0 +1,29 @@
+# Minimal Backend-Only Requirements for Agentic RAG System
+# Atlas University, Istanbul, Türkiye
+
+# Core FastAPI and web framework
+fastapi>=0.104.0
+uvicorn>=0.23.2
+pydantic>=2.4.2
+
+# Configuration and environment
+pyyaml>=6.0.1
+python-dotenv>=1.0.0
+
+# LangChain core (minimal)
+langchain>=0.0.335
+langchain-openai>=0.0.2
+langgraph>=0.0.20
+
+# OpenAI and Tavily for basic functionality
+openai>=1.0.0
+tavily-python>=0.2.2
+
+# Basic utilities
+requests>=2.31.0
+
+# Database connections (optional)
+pymongo>=4.5.0
+
+# Memory management
+langchain-community>=0.0.10

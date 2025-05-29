@@ -1,0 +1,116 @@
+# Document Processing Configuration for Agentic RAG System
+
+# Default settings for document processing
+default_settings:
+  # Base directory for document storage
+  data_dir: "data"
+  
+  # OpenAI embedding model to use
+  embedding_model: "text-embedding-3-small"
+  
+  # Text splitting configuration
+  chunk_size: 1000
+  chunk_overlap: 200
+  
+  # Default collection settings
+  default_collection: "general_documents"
+  default_persist_directory: "./chroma_db"
+
+# Collection configurations for different document types
+collections:
+  # Academic documents collection
+  academic_documents:
+    description: "Academic papers, research documents, and scholarly articles"
+    persist_directory: "./chroma_db/academic"
+    chunk_size: 1500
+    chunk_overlap: 300
+    metadata:
+      category: "academic"
+      audience: "researchers"
+  
+  # Student documents collection
+  student_documents:
+    description: "Course materials, assignments, and student resources"
+    persist_directory: "./chroma_db/student"
+    chunk_size: 800
+    chunk_overlap: 150
+    metadata:
+      category: "educational"
+      audience: "students"
+  
+  # Administrative documents collection
+  admin_documents:
+    description: "Administrative policies, procedures, and guidelines"
+    persist_directory: "./chroma_db/admin"
+    chunk_size: 1200
+    chunk_overlap: 200
+    metadata:
+      category: "administrative"
+      audience: "staff"
+  
+  # General documents collection
+  general_documents:
+    description: "General purpose documents and resources"
+    persist_directory: "./chroma_db/general"
+    chunk_size: 1000
+    chunk_overlap: 200
+    metadata:
+      category: "general"
+      audience: "all"
+
+# File type specific settings
+file_types:
+  pdf:
+    loader: "PyPDFLoader"
+    supported: true
+    description: "PDF documents"
+  
+  docx:
+    loader: "Docx2txtLoader"
+    supported: true
+    description: "Microsoft Word documents (DOCX)"
+  
+  doc:
+    loader: "UnstructuredWordDocumentLoader"
+    supported: true
+    description: "Microsoft Word documents (DOC)"
+  
+  txt:
+    loader: "TextLoader"
+    supported: true
+    encoding: "utf-8"
+    description: "Plain text files"
+
+# Processing rules
+processing_rules:
+  # Minimum content length for a chunk to be included
+  min_chunk_length: 50
+  
+  # Maximum content length for a single chunk
+  max_chunk_length: 5000
+  
+  # Skip files larger than this size (in MB)
+  max_file_size_mb: 100
+  
+  # Skip empty documents
+  skip_empty_documents: true
+  
+  # Include file metadata in chunks
+  include_file_metadata: true
+
+# Logging configuration
+logging:
+  level: "INFO"
+  format: "%(asctime)s - %(name)s - %(levelname)s - %(message)s"
+  file: "logs/document_processing.log"
+
+# Batch processing settings
+batch_processing:
+  # Maximum number of files to process in a single batch
+  max_batch_size: 100
+  
+  # Continue processing even if some files fail
+  continue_on_error: true
+  
+  # Save progress after every N files
+  save_progress_interval: 10

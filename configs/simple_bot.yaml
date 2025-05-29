@@ -1,0 +1,39 @@
+agent:
+  config:
+    max_tokens: 1000
+    temperature: 0.2
+  model: gpt-4o-mini
+  type: langgraph
+
+description:
+  A simple bot developed by Atlas University in Istanbul, Turkey, designed to
+  provide basic AI assistance without database dependencies.
+
+metadata:
+  audience: general
+  institution: Atlas University
+  languages:
+    - English
+    - Turkish
+  location: Istanbul, Turkey
+  topics:
+    - general assistance
+    - basic queries
+    - AI conversation
+
+name: SimpleBot
+
+prompts:
+  query_prompt_path: simple_bot/query.txt
+  system_prompt_path: simple_bot/system.txt
+
+tools:
+  - config:
+      exclude_domains:
+        - facebook.com
+        - twitter.com
+        - instagram.com
+      include_domains: []
+      max_results: 5
+    enabled: true
+    type: WebSearchTool

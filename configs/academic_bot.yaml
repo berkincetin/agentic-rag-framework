@@ -1,0 +1,81 @@
+agent:
+  config:
+    max_tokens: 2000
+    temperature: 0.1
+  model: gpt-4.1-mini
+  type: langgraph
+database:
+  mongodb:
+    collections:
+      - publications
+      - conferences
+      - journals
+    connection_string: mongodb://localhost:27017/
+    database_name: academic_db
+  sql:
+    connection_string: sqlite:///C:\Users\Polinity\Desktop\WORK\Agentic RAG\tests\test_db.sqlite
+    tables:
+      - researchers
+      - institutions
+      - grants
+      - publications
+description:
+  A bot developed by Atlas University in Istanbul, Turkey, designed to
+  assist with academic research and scholarly information.
+metadata:
+  audience: researchers
+  institution: Atlas University
+  languages:
+    - English
+    - Turkish
+  location: Istanbul, Turkey
+  topics:
+    - academic publications
+    - research grants
+    - scholarly resources
+    - academic institutions
+    - research methodologies
+name: AcademicBot
+prompts:
+  query_prompt_path: academic_bot/query.txt
+  system_prompt_path: academic_bot/system.txt
+tools:
+  - config:
+      collection_name: academic_documents
+      persist_directory: ./chroma_db/academic
+      top_k: 10
+    enabled: true
+    type: DocumentSearchTool
+  - config:
+      connection_string: mongodb://localhost:27017/
+      database_name: academic_db
+      default_collection: publications
+      max_results: 15
+      model: gpt-4.1-mini
+      temperature: 0.0
+    enabled: true
+    type: MongoDBQueryTool
+  - config:
+      allowed_tables:
+        - researchers
+        - institutions
+        - grants
+        - publications
+      connection_string: sqlite:///C:\Users\Polinity\Desktop\WORK\Agentic RAG\tests\test_db.sqlite
+      max_results: 50
+    enabled: true
+    type: SQLQueryTool
+  - config:
+      exclude_domains:
+        - facebook.com
+        - twitter.com
+        - instagram.com
+      include_domains:
+        - edu
+        - org
+        - gov
+        - ac.uk
+      max_results: 5
+      search_depth: comprehensive
+    enabled: true
+    type: WebSearchTool

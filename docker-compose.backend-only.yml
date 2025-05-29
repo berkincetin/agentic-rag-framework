@@ -1,0 +1,65 @@
+services:
+  # Sadece Agentic RAG Backend
+  agentic-rag:
+    build:
+      context: .
+      dockerfile: Dockerfile.backend-only
+      target: production
+    container_name: agentic-rag-backend
+    restart: unless-stopped
+    ports:
+      - "8000:8000"
+    environment:
+      - HOST=0.0.0.0
+      - PORT=8000
+      - DEBUG=true
+      - LOG_LEVEL=INFO
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - TAVILY_API_KEY=${TAVILY_API_KEY}
+      # MongoDB bağlantısı
+      - MONGODB_URL=mongodb://mongodb:27017/
+    volumes:
+      - ./data:/app/data
+      - ./configs:/app/configs:ro
+      - ./prompts:/app/prompts:ro
+    depends_on:
+      - mongodb
+    networks:
+      - backend-network
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+  # MongoDB Database
+  mongodb:
+    image: mongo:7.0
+    container_name: agentic-rag-mongodb-backend
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    environment:
+      - MONGO_INITDB_ROOT_USERNAME=admin
+      - MONGO_INITDB_ROOT_PASSWORD=password123
+      - MONGO_INITDB_DATABASE=agentic_rag
+    volumes:
+      - mongodb_backend_data:/data/db
+      - ./docker/mongodb-init.js:/docker-entrypoint-initdb.d/init.js:ro
+    networks:
+      - backend-network
+    healthcheck:
+      test: ["CMD", "mongosh", "--eval", "db.adminCommand('ping')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+volumes:
+  mongodb_backend_data:
+    driver: local
+
+networks:
+  backend-network:
+    driver: bridge

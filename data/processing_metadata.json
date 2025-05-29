@@ -1,0 +1,11 @@
+{
+  "data\\raw\\admin\\httpsmyapi2.atlas.edu.trmevzuat-yonetmelikleryonetmelikistanbul-atlas-universitesi-dis-hekimligi-fakultesi-egitim-ogretim-ve-sinav-yonetmeligi (1).pdf": {
+    "file_name": "httpsmyapi2.atlas.edu.trmevzuat-yonetmelikleryonetmelikistanbul-atlas-universitesi-dis-hekimligi-fakultesi-egitim-ogretim-ve-sinav-yonetmeligi (1).pdf",
+    "file_size": 457791,
+    "processed_at": "2025-05-26T15:24:47.684398",
+    "collection_name": "admin_documents",
+    "persist_directory": "data\\chroma_stores\\admin_documents",
+    "chunk_count": 50,
+    "status": "success"
+  }
+}

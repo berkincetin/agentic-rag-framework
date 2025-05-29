@@ -1,0 +1,68 @@
+agent:
+  config:
+    max_tokens: 1000
+    temperature: 0.2
+  model: gpt-4.1-mini
+  type: langgraph
+database:
+  mongodb:
+    collections:
+      - usul_ve_esaslar-rag-chroma
+    connection_string: mongodb://localhost:27017/
+    database_name: vector_db
+description:
+  A bot developed by Atlas University in Istanbul, Turkey, designed to
+  assist students with academic queries and research.
+metadata:
+  audience: students
+  institution: Atlas University
+  languages:
+    - English
+    - Turkish
+  location: Istanbul, Turkey
+  topics:
+    - course information
+    - assignments
+    - academic resources
+    - research assistance
+name: StudentBot
+prompts:
+  query_prompt_path: student_bot/query.txt
+  system_prompt_path: student_bot/system.txt
+tools:
+  - config:
+      collection_name: student_documents
+      persist_directory: ./chroma_db/student
+      top_k: 5
+    enabled: true
+    type: DocumentSearchTool
+  - config:
+      connection_string: mongodb://localhost:27017/
+      database_name: vector_db
+      default_collection: usul_ve_esaslar-rag-chroma
+      max_results: 10
+      model: gpt-4.1-mini
+      temperature: 0.0
+    enabled: true
+    type: MongoDBQueryTool
+  - config:
+      exclude_domains:
+        - facebook.com
+        - twitter.com
+      include_domains:
+        - edu
+        - org
+      max_results: 3
+      search_depth: basic
+    enabled: true
+    type: WebSearchTool
+  - config:
+      allowed_tables:
+        - staff
+        - departments
+        - budgets
+        - facilities
+      connection_string: sqlite:///C:\Users\Polinity\Desktop\WORK\Agentic RAG\tests\test_db.sqlite
+      max_results: 50
+    enabled: true
+    type: SQLQueryTool
