@@ -625,10 +625,3 @@ Invoke-WebRequest -Method POST -Uri "http://localhost:8000/bots/StudentBot/clear
 ## License
 
 MIT License - see the LICENSE file for details.
-
-## Support
-
-For support and questions:
-- Create an issue on GitHub
-- Check the documentation in the `docs/` directory
-- Review the examples in the `examples/` directory
