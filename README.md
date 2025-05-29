@@ -59,7 +59,7 @@ Docker provides the easiest way to run the Agentic RAG system with all dependenc
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/berkincetin/agentic-rag.git
+   git clone https://github.com/berkincetin/agentic-rag-framework
    cd agentic-rag
    ```
 
